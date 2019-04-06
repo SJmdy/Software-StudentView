@@ -92,36 +92,31 @@
             }
         },
         mounted() {
-            this.$request.post('/api/s_view_reservation', {
-                account: localStorage.getItem('account')
+            this.$store.dispatch('post_data', {
+                api: '/api/s_view_reservation',
+                data: {
+                    account: localStorage.getItem('account')
+                }
             }).then((response) => {
-                console.log('sadddddddddddddd')
-                console.log(response.data)
                 if (response.data.status == 200) {
-                    this.myRes = response.data.results
-                    console.log('asdasdasd')
+                    this.myRes = response.data.ress
                     for (let i = 0; i < this.myRes.length; i = i + 1) {
                         this.myRes[i]['segment'] = this.$store.state.map_segment[this.myRes[i]['segment']]
                         this.myRes[i]['week'] = this.$store.state.map_week[this.myRes[i]['week']]
                         this.myRes[i]['weekday'] = this.$store.state.map_weekday[this.myRes[i]['weekday']]
                     }
-                } else if (response.data.status == 201) {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
+                } else {
+                    this.$store.commit({
+                        type: 'show_message',
+                        status: response.data.status
                     })
-                } else if (response.data.status == 401) {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
-                    })
+                    console.log(response.data.status)
+                    this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                this.$message({
-                    type: 'error',
-                    message: '网络异常，请稍后再试'
-                })
+                alert(error)
             })
+
         }
     }
 </script>

@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import app from './modules/app'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+    modules: {
+        app
+    },
     state: {
         account: '',
         sidebar_disabled: false,
@@ -54,14 +58,6 @@ export default new Vuex.Store({
             '6': '星期六',
             '7': '星期日'
         }
-    },
-
-    mutations: {
-        get_account(state, payload) {
-            state.account = payload.account
-        },
-        sidebar_disabled (state, payload){
-            state.sidebar_disabled = payload['sidebar_disabled']
-        }
     }
+
 })

@@ -73,6 +73,7 @@
                     department: '',
                     number: '',
                     classroom: '',
+                    direction: ''
                 },
 
                 rules: {
@@ -89,76 +90,64 @@
             },
 
             submitPerInfo() {
-                this.$request.post('/api/submit_per_info', {
-                    identify: this.$store.state.identify,
-                    name: this.personInfo.name,
-                    email: this.personInfo.email,
-                    classroom: this.personInfo.classroom,
-                    direction: this.personInfo.direction,
-                    introduction: this.personInfo.introduction,
-                    // workplace: this.personInfo.workplace,
-                    phone: this.personInfo.phone,
-                    department: this.personInfo.department,
-                    number: this.personInfo.number,
-                    account: localStorage.getItem('account')
+                this.$store.dispatch('post_data', {
+                    api: '/api/s_submit_own_info',
+                    data: {
+                        name: this.personInfo.name,
+                        email: this.personInfo.email,
+                        classroom: this.personInfo.classroom,
+                        direction: this.personInfo.direction,
+                        phone: this.personInfo.phone,
+                        department: this.personInfo.department,
+                        number: this.personInfo.number,
+                        account: localStorage.getItem('account')
+                    }
                 }).then((response) => {
-                    console.log(response.data)
                     if (response.data.status == 200) {
                         this.$message({
                             type: 'success',
                             message: '发布成功'
                         })
-
                         this.$store.commit({
                             'type' :'sidebar_disabled',
                             'sidebar_disabled': false
                         })
                         localStorage.setItem('sidebar_disabled', 'false')
                         this.disabled2 = true
-                    } else if (response.data.status == 201) {
-                        this.$message({
-                            type: 'error',
-                            message: '网络异常，请稍后再试'
+                    } else {
+                        this.$store.commit({
+                            type: 'show_message',
+                            status: response.data.status
                         })
-                    } else if (response.data.status == 401) {
-                        this.$message({
-                            type: 'error',
-                            message: '网络异常，请稍后再试'
-                        })
+                        console.log(response.data.status)
+                        this.$message(this.$store.state.app.message_box)
                     }
                 }).catch((error) => {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
-                    })
+                    alert(error)
                 })
             }
 
         },
 
         mounted() {
-            this.$request.post('/api/get_s_info', {
-                'account': localStorage.getItem('account')
+            this.$store.dispatch('post_data', {
+                api: '/api/s_view_own_info',
+                data: {
+                    'account': localStorage.getItem('account')
+                }
             }).then((response) => {
-                console.log(response.data)
                 if (response.data.status == 200) {
                     this.personInfo = response.data.info
-                } else if (response.data.status == 201) {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
+                } else {
+                    this.$store.commit({
+                        type: 'show_message',
+                        status: response.data.status
                     })
-                } else if (response.data.status == 401) {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
-                    })
+                    console.log(response.data.status)
+                    this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                this.$message({
-                    type: 'error',
-                    message: '网络异常，请稍后再试'
-                })
+                alert(error)
             })
         }
     }

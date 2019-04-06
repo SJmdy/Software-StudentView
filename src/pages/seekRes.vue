@@ -91,42 +91,37 @@
         },
 
         methods: {
-
-
             submitRes(index, row) {
                 this.$prompt('请输入预约原因', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                 }).then(({ value }) => {
                     console.log(row)
-                    this.$request.post('/api/s_release_reservation', {
-                        'account': localStorage.getItem('account'),
-                        'serial': row.serial,
-                        'reason': value
+                    this.$store.dispatch('post_data', {
+                        api: '/api/s_release_reservation',
+                        data: {
+                            'account': localStorage.getItem('account'),
+                            'serial': row.serial,
+                            'reason': value
+                        }
                     }).then((response) => {
-                        console.log(response.data)
                         if (response.data.status == 200) {
                             this.$message({
                                 type: 'success',
                                 message: '预约成功！'
                             })
-                        } else if (response.data.status == 201) {
-                            this.$message({
-                                type: 'error',
-                                message: '网络异常，请稍后再试'
+                            location.reload()
+                        } else {
+                            this.$store.commit({
+                                type: 'show_message',
+                                status: response.data.status
                             })
-                        } else if (response.data.status == 401) {
-                            this.$message({
-                                type: 'error',
-                                message: '网络异常，请稍后再试'
-                            })
+                            console.log(response.data.status)
+                            this.$message(this.$store.state.app.message_box)
                         }
                     }).catch((error) => {
-                        this.$message({
-                            type: 'error',
-                            message: '网络异常，请稍后再试'
-                        })
-                    })
+                        alert(error)
+                    });
                 }).catch(() => {
                     this.$message({
                         type: 'info',
@@ -137,33 +132,28 @@
         },
 
         mounted() {
-            this.$request.post('/api/seek_reservation', {
 
+            this.$store.dispatch('post_data', {
+                api: '/api/seek_reservation',
+                data: {}
             }).then((response) => {
-                console.log(response.data)
                 if (response.data.status == 200) {
-                    this.resInfo = response.data.results
+                    this.resInfo = response.data.ress
                     for (let i = 0; i < this.resInfo.length; i = i + 1) {
                         this.resInfo[i]['segment'] = this.$store.state.map_segment[this.resInfo[i]['segment']]
                         this.resInfo[i]['week'] = this.$store.state.map_week[this.resInfo[i]['week']]
                         this.resInfo[i]['weekday'] = this.$store.state.map_weekday[this.resInfo[i]['weekday']]
                     }
-                } else if (response.data.status == 201) {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
+                } else {
+                    this.$store.commit({
+                        type: 'show_message',
+                        status: response.data.status
                     })
-                } else if (response.data.status == 401) {
-                    this.$message({
-                        type: 'error',
-                        message: '网络异常，请稍后再试'
-                    })
+                    console.log(response.data.status)
+                    this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                this.$message({
-                    type: 'error',
-                    message: '网络异常，请稍后再试'
-                })
+                alert(error)
             })
         }
     }
