@@ -5,13 +5,6 @@
                 <el-col :span=3>
                     <img src='../assets/Logo.png' class="avator">
                 </el-col>
-                <el-col :span=4 :offset=7>
-                    <el-menu :default-active="activeIndex" mode="horizontal" class="el-menu-demo" style="opacity: 0.5;"
-                             @select="handleSelect">
-                        <el-menu-item index="1">首页</el-menu-item>
-                        <el-menu-item index="2">介绍</el-menu-item>
-                    </el-menu>
-                </el-col>
 
                 <el-col :span=1 :offset=7 style="margin-top : 15px">
                     <el-button type="primary" round size="small" @click="SignInVisible = true">登录</el-button>
@@ -81,11 +74,7 @@
                         <el-input type="password" v-model="SignUpForm.checkPassword" autocomplete="off"></el-input>
                     </el-col>
                 </el-form-item>
-                <!--<el-form-item label="验证码" prop="pin">-->
-                <!--<el-col :span=16>-->
-                <!--<el-input v-model="ruleForm2.pin"></el-input>-->
-                <!--</el-col>-->
-                <!--</el-form-item>-->
+
             </el-form>
             <span slot="footer" class="dialog-footer">
 				<el-button @click="resetForm('SignUpForm')">取 消</el-button>

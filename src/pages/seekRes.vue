@@ -6,7 +6,7 @@
                 <el-col :span="20" :offset="2" style="margin-top: 10%;">
                     <span style="font-family: Helvetica Neue; font-size: 18px">预约信息如下：</span>
                     <el-table
-                            :data="resInfo.filter(data => !search || data.teacher.toLowerCase().includes(search.toLowerCase()))"
+                            :data="resInfo.filter(data => !search || data.t_name.toLowerCase().includes(search.toLowerCase()))"
                             stripe
                             style="width: 100%">
                         <el-table-column
