@@ -4,9 +4,9 @@
         <div>
             <el-row>
                 <el-col :span="20" :offset="2" style="margin-top: 10%;">
-                    <span style="font-family: Helvetica Neue; font-size: 18px">预约信息如下：</span>
+                    <span style="font-family: Helvetica Neue; font-size: 18px">考试安排如下：</span>
                     <el-table
-                            :data="resInfo.filter(data => !search || data.t_name.toLowerCase().includes(search.toLowerCase()))"
+                            :data="examInfo.filter(data => !search || data.e_name.toLowerCase().includes(search.toLowerCase()))"
                             stripe
                             style="width: 100%">
                         <el-table-column
@@ -23,12 +23,21 @@
                         </el-table-column>
                         <el-table-column
                                 sortable
-                                prop="segment"
-                                label="时间段">
+                                prop="start"
+                                label="开始时间">
+                        </el-table-column>
+                        <el-table-column
+                                sortable
+                                prop="end"
+                                label="结束时间">
+                        </el-table-column>
+                        <el-table-column
+                                prop="e_name"
+                                label="课程">
                         </el-table-column>
                         <el-table-column
                                 prop="t_name"
-                                label="教师">
+                                label="授课教师">
                         </el-table-column>
 
                         <el-table-column
@@ -37,23 +46,18 @@
                         </el-table-column>
 
                         <el-table-column
-                                prop="tips"
-                                label="注意事项">
-                        </el-table-column>
-
-                        <el-table-column
                                 align="right">
                             <template slot="header" slot-scope="scope">
                                 <el-input
                                         v-model="search"
                                         size="mini"
-                                        placeholder="输入教师名搜索"/>
+                                        placeholder="输入课程名搜索"/>
                             </template>
                             <template slot-scope="scope">
                                 <el-button
-                                        size="mini"
                                         type="success"
-                                        @click="submitRes(scope.$index, scope.row)">预约</el-button>
+                                        size="mini"
+                                        @click="submitExam(scope.$index,scope.row)">添加考试</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -67,7 +71,7 @@
     import headTop from '../components/Header'
 
     export default {
-        name: "seekRes",
+        name: "seekExam",
 
         components: {
             headTop
@@ -75,14 +79,15 @@
 
         data () {
             return {
-                resInfo: [
+                examInfo: [
                     {
                         week: '第1周',
                         weekday: '周五',
-                        segment: '10:30 ^ 11:00',
+                        start:'1',
+                        end:'1',
+                        e_name: 'math',
                         t_name: '***',
                         place: '宋健1号楼***',
-                        tips: '',
                         serial: 1
                     }
                 ],
@@ -91,27 +96,32 @@
         },
 
         methods: {
-            submitRes(index, row) {
-                this.$prompt('请输入预约原因', '提示', {
+            submitExam(index, row) {
+                this.$confirm('确认添加该考试?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
-                }).then(({ value }) => {
+                }).then(() => {
                     console.log(row)
                     this.$store.dispatch('post_data', {
-                        api: '/api/s_release_reservation',
+                        api: '/api/add_exam',
                         data: {
                             'account': localStorage.getItem('account'),
-                            'serial': row.serial,
-                            'reason': value
+                            'serial': row.serial
                         }
                     }).then((response) => {
                         if (response.data.status == 200) {
                             this.$message({
                                 type: 'success',
-                                message: '预约成功！'
+                                message: '添加成功！'
                             })
                             location.reload()
-                        } else {
+                        } else if(response.data.status == 400){
+                            this.$message({
+                                type: 'warning',
+                                message: '已添加！'
+                            })
+                        }
+                        else {
                             this.$store.commit({
                                 type: 'show_message',
                                 status: response.data.status
@@ -134,15 +144,15 @@
         mounted() {
 
             this.$store.dispatch('post_data', {
-                api: '/api/seek_reservation',
-                data: {}
+                api: '/api/seek_exams',
+                data: {
+                }
             }).then((response) => {
                 if (response.data.status == 200) {
-                    this.resInfo = response.data.ress
-                    for (let i = 0; i < this.resInfo.length; i = i + 1) {
-                        this.resInfo[i]['segment'] = this.$store.state.map_segment[this.resInfo[i]['segment']]
-                        this.resInfo[i]['week'] = this.$store.state.map_week[this.resInfo[i]['week']]
-                        this.resInfo[i]['weekday'] = this.$store.state.map_weekday[this.resInfo[i]['weekday']]
+                    this.examInfo = response.data.exams
+                    for (let i = 0; i < this.examInfo.length; i = i + 1) {
+                        this.examInfo[i]['week'] = this.$store.state.map_week[this.examInfo[i]['week']]
+                        this.examInfo[i]['weekday'] = this.$store.state.map_weekday[this.examInfo[i]['weekday']]
                     }
                 } else {
                     this.$store.commit({

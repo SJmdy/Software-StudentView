@@ -5,6 +5,13 @@
                 <el-col :span=3>
                     <img src='../assets/Logo.png' class="avator">
                 </el-col>
+                <el-col :span=4 :offset=7>
+                    <el-menu :default-active="activeIndex" mode="horizontal" class="el-menu-demo" style="opacity: 0.5;"
+                             @select="handleSelect">
+                        <el-menu-item index="1">首页</el-menu-item>
+                        <el-menu-item index="2">介绍</el-menu-item>
+                    </el-menu>
+                </el-col>
 
                 <el-col :span=1 :offset=7 style="margin-top : 15px">
                     <el-button type="primary" round size="small" @click="SignInVisible = true">登录</el-button>
