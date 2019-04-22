@@ -280,8 +280,10 @@
                                 localStorage.setItem('account', this.SignInForm.account)
                                 if (response.data.status == 200) {
                                     this.$router.push('/Main')
+                                    // this.$router.push('/TestTable')
                                 } else {
                                     this.$router.push('/personInfo')
+                                    // this.$router.push('/TestTable')
                                 }
                                 location.reload()
                             } else {

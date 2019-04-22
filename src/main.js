@@ -16,12 +16,14 @@ import store from './store'
 
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icon/iconfont.css'
+import fullCalendar from 'vue-fullcalendar'
 
 
 Vue.use(ElementUI);
 Vue.prototype.$request = axios
 Vue.prototype.$store = store
 Vue.config.productionTip = false
+Vue.component('full-calendar', fullCalendar)
 
 /* eslint-disable no-new */
 new Vue({

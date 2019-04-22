@@ -1,16 +1,34 @@
 <template>
-  <div id="app" class="fillcontain">
-    <router-view/>
-  </div>
+    <div id="app" class="fillcontain">
+        <router-view/>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+    export default {
+        name: 'App',
+        provide() {
+            return {
+                reload: this.reload
+            }
+        },
+        data() {
+            return {
+                isRouterAlive: true
+            }
+        },
+        methods: {
+            reload() {
+                this.isRouterAlive = false;
+                this.$nextTick (function () {
+                    this.isRouterAlive = true;
+                })
+            }
+        }
+    }
 </script>
 
-<style lang = "less">
-@import './style/common';
+<style lang="less">
+    @import './style/common';
 
 </style>
