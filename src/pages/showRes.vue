@@ -34,7 +34,7 @@
                                 <el-col :span="12">
                                     <el-button
                                             size="mini"
-                                            @click="handleFinish(scope.$index, scope.row)">完成
+                                            @click="handleFinish(index, res)">完成
                                     </el-button>
                                     <el-button
                                             v-if="res.is_canceled == '0'"
