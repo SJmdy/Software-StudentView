@@ -60,9 +60,6 @@
 				return this.$route.path.replace('/', '');
 			},
 			sidebar_disabled: function(){
-				// this.disabled = this.$store.state.sidebar_disabled
-				// return this.$store.state.sidebar_disabled
-
 				let disabled = localStorage.getItem('sidebar_disabled')
 				this.disabled = Boolean(disabled)
 				return this.disabled
