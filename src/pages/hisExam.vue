@@ -50,25 +50,18 @@
         data () {
             return {
                 reverse: true,
-                activities: [{
-                    e_name:'概率论',
-                    start:'8:00',
-                    end:'10:00',
-                    place:'M302',
-                    timestamp: '2018-11-15'
-                    }, {
-                    e_name:'数理逻辑',
-                    start:'8:00',
-                    end:'10:00',
-                    place:'M202',
-                    timestamp: '2018-05-13'
-                    }, {
-                    e_name:'计算机网络',
-                    start:'8:00',
-                    end:'10:00',
-                    place:'M102',
-                    timestamp: '2018-04-11'
-                }],
+                myExam : [
+                    {
+                        e_name:'',
+                        t_name: '***',
+                        place: '宋健一号院北***',
+                        week: '第1周',
+                        weekday: '周五',
+                        start:'',
+                        end:'',
+                        serial:''
+                    }
+                ],
                 search: '',
             }
         },
@@ -80,14 +73,14 @@
         mounted() {
 
             this.$store.dispatch('post_data', {
-                api: '/api/seek_reservation',
-                data: {}
+                api: '/api/s_view_finish_exam',
+                data: {account: localStorage.getItem('account')}
             }).then((response) => {
                 if (response.data.status == 200) {
-                    this.resInfo = response.data.ress
+                    this.myExam = response.data.exams
                     for (let i = 0; i < this.resInfo.length; i = i + 1) {
-                        this.resInfo[i]['week'] = this.$store.state.map_week[this.resInfo[i]['week']]
-                        this.resInfo[i]['weekday'] = this.$store.state.map_weekday[this.resInfo[i]['weekday']]
+                        this.myExam[i]['week'] = this.$store.state.map_week[this.myExam[i]['week']]
+                        this.myExam[i]['weekday'] = this.$store.state.map_weekday[this.myExam[i]['weekday']]
                     }
                 } else {
                     this.$store.commit({
