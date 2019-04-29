@@ -4,7 +4,7 @@
         <div>
             <el-row>
                 <el-col :span="20" :offset="2" style="margin-top: 10%;">
-                    <span style="font-family: Helvetica Neue; font-size: 14px">您等待完成的预约如下：</span>
+                    <span style="font-family: Helvetica Neue; font-size: 14px">您等待完成的考试如下：</span>
                     <el-button type="text" @click="changeShowModus">{{show_modus}}</el-button>
                     <div class="block" style="margin-bottom: 5%;">
                         <div class="radio">
@@ -135,7 +135,42 @@
 
         methods: {
             handleFinish(index, row) {
-                console.log(index, row);
+                this.$confirm('预约已完成？',{
+                    confirmButtonText: '是',
+                    cancelButtonText: '否',
+                }).then(({value})=>{
+                    console.log(row)
+                    this.$store.dispatch('post_data', {
+                        api: '/api/s_finish_exam',
+                        data: {
+                            'account': localStorage.getItem('account'),
+                            'serial': row.serial
+                        }
+                    }).then((response) => {
+                        if (response.data.status == 200) {
+                            this.$message({
+                                type: 'success',
+                                message: '预约已完成！'
+                            })
+                            location.reload()
+                        } else {
+                            this.$store.commit({
+                                type: 'show_message',
+                                status: response.data.status
+                            })
+                            console.log(response.data.status)
+                            this.$message(this.$store.state.app.message_box)
+                        }
+                    }).catch((error) => {
+                        alert(error)
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: ' '
+                    });
+                })
+                //console.log(index, row);
             },
             handleDelete(index, row) {
                 console.log(index, row);
