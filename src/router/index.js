@@ -10,7 +10,6 @@ import seekExam from '../pages/seekExam'
 import hisRes from '../pages/hisRes'
 import hisExam from '../pages/hisExam'
 import personInfo from '../pages/personInfo'
-import TestTable from '../pages/TestTable'
 
 Vue.use(Router)
 
@@ -60,10 +59,10 @@ export default new Router({
                     path: '/personInfo',
                     component: personInfo
                 },
-                {
+                /* {
                     path: '/TestTable',
                     component: TestTable
-                }
+                } */
             ]
         }
     ]
