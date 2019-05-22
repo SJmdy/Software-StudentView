@@ -29,6 +29,16 @@
                         <el-table-column
                                 prop="t_name"
                                 label="教师">
+                            <template slot-scope="scope">
+                                <el-popover trigger="hover" placement="top">
+                                  <p>姓名: {{ scope.row.t_name }}</p>
+                                  <p>邮件: {{ scope.row.t_email }}</p>
+                                  <p>电话: {{ scope.row.t_phone }}</p>
+                                  <div slot="reference" class="name-wrapper">
+                                    <el-tag size="medium">{{ scope.row.t_name }}</el-tag>
+                                  </div>
+                                </el-popover>
+                            </template>
                         </el-table-column>
 
                         <el-table-column
@@ -83,6 +93,8 @@
                         t_name: '***',
                         place: '宋健1号楼***',
                         tips: '',
+                        t_email: '',
+                        t_phone: '',
                         serial: 1
                     }
                 ],
