@@ -9,8 +9,8 @@
                         <div class="radio">
                             <span style="font-family: Helvetica Neue; font-size: 14px">排序：</span>
                             <el-radio-group v-model="reverse">
-                            <el-radio :label="true">倒序</el-radio>
-                            <el-radio :label="false">正序</el-radio>
+                                <el-radio :label="true">倒序</el-radio>
+                                <el-radio :label="false">正序</el-radio>
                             </el-radio-group>
                         </div>
                     </div>
@@ -19,19 +19,25 @@
         </div>
         <div class="block">
             <el-row>
-            <el-col :span="20" :offset="2" style="margin-top: 5%;">
-            <el-timeline :reverse="reverse">
-                <el-timeline-item
-                v-for="(exam, index) in examInfo"
-                :key="index"
-                :timestamp="exam.week">
-                <el-card>
-                    <h4>{{exam.e_name}}</h4>
-                    <p>{{exam.place}}   {{exam.start}}-{{exam.end}}</p>
-                </el-card>
-                </el-timeline-item>
-            </el-timeline>
-            </el-col>
+                <el-col :span="20" :offset="2" style="margin-top: 5%;">
+                    <el-timeline :reverse="reverse">
+                        <el-timeline-item
+                                v-for="(exam, index) in examInfo"
+                                :key="index"
+                                color="#67C23A"
+                                icon="el-icon-check"
+                                :timestamp="exam.week">
+                            <el-card>
+                                <h4>考试名称：{{exam.e_name}}</h4>
+                                <el-divider></el-divider>
+                                <span>考试地点：{{exam.place}}</span>
+                                <el-divider direction="vertical"></el-divider>
+                                <span>考试时间：{{exam.week}} {{exam.weekday}} {{exam.start}}-{{exam.end}}</span>
+                                <br>
+                            </el-card>
+                        </el-timeline-item>
+                    </el-timeline>
+                </el-col>
             </el-row>
         </div>
     </div>
@@ -47,36 +53,27 @@
             headTop
         },
 
-        data () {
+        data() {
             return {
                 reverse: true,
-                activities: [{
-                    e_name:'概率论',
-                    start:'8:00',
-                    end:'10:00',
-                    place:'M302',
-                    timestamp: '2018-11-15'
-                    }, {
-                    e_name:'数理逻辑',
-                    start:'8:00',
-                    end:'10:00',
-                    place:'M202',
-                    timestamp: '2018-05-13'
-                    }, {
-                    e_name:'计算机网络',
-                    start:'8:00',
-                    end:'10:00',
-                    place:'M102',
-                    timestamp: '2018-04-11'
-                }],
+                myExam: [
+                    {
+                        e_name: '',
+                        t_name: '***',
+                        place: '宋健一号院北***',
+                        week: '第1周',
+                        weekday: '周五',
+                        start: '',
+                        end: '',
+                        serial: ''
+                    }
+                ],
                 search: '',
                 examInfo: []
             }
         },
 
-        methods: {
-            
-        },
+        methods: {},
 
         mounted() {
 
@@ -92,6 +89,7 @@
                         this.examInfo[i]['week'] = this.$store.state.map_week[this.examInfo[i]['week']]
                         this.examInfo[i]['weekday'] = this.$store.state.map_weekday[this.examInfo[i]['weekday']]
                         this.examInfo[i]['segment'] = this.$store.state.map_weekday[this.examInfo[i]['segment']]
+
                     }
                 } else {
                     this.$store.commit({
