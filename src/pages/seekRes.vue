@@ -135,13 +135,13 @@
                             this.$message({
                                 type: 'success',
                                 message: '预约成功！'
-                            })
+                            });
                             location.reload()
                         } else {
                             this.$store.commit({
                                 type: 'show_message',
                                 status: response.data.status
-                            })
+                            });
                             console.log(response.data.status)
                             this.$message(this.$store.state.app.message_box)
                         }

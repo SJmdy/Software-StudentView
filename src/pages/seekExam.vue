@@ -113,8 +113,8 @@
                             this.$message({
                                 type: 'success',
                                 message: '添加成功！'
-                            })
-                            location.reload()
+                            });
+                            location.reload();
                         } else if(response.data.status == 400){
                             this.$message({
                                 type: 'warning',
@@ -125,8 +125,8 @@
                             this.$store.commit({
                                 type: 'show_message',
                                 status: response.data.status
-                            })
-                            console.log(response.data.status)
+                            });
+                            console.log(response.data.status);
                             this.$message(this.$store.state.app.message_box)
                         }
                     }).catch((error) => {

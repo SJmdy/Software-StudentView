@@ -41,7 +41,7 @@
                     </el-col>
 
                     <el-col :span="12">
-                        <p>对预约的评价：</p>
+                        <p>老师评价：</p>
                         <el-divider></el-divider>
                         <template>
                             <el-rate
