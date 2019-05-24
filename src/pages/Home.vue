@@ -162,7 +162,7 @@
                 },
                 rules2: {
                     password: [
-                        { pattern: /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_]+$)(?![a-z0-9]+$)(?![a-z\W_]+$)(?![0-9\W_]+$)[a-zA-Z0-9\W_]{8,30}$/, message: '密码必须包含数字、小写字母和大写字母，长度不小于8位' }
+                        {validator: validatePass, trigger: 'blur'}
                     ],
                     checkPassword: [
                         {validator: validatePass2, trigger: 'blur'}
@@ -219,6 +219,8 @@
                                     message: '注册成功！请前往登陆界面登陆',
                                     duration: 6000
                                 })
+                                this.SignUpVisible = false;
+                                this.SignInVisible = true;
                             } else if (response.data == 400) {
                                 this.$message({
                                     message: "该用户名已存在",

@@ -4,7 +4,7 @@
         <div>
             <el-row>
                 <el-col :span="20" :offset="2" style="margin-top: 10%;">
-                    <span style="font-family: Helvetica Neue; font-size: 14px">您等待完成的预约如下：</span>
+                    <span style="font-family: Helvetica Neue; font-size: 14px">您等待完成的考试如下：</span>
                     <el-button type="text" @click="changeShowModus">{{show_modus}}</el-button>
                     <div class="block" style="margin-bottom: 5%;">
                         <div class="radio">
@@ -135,6 +135,7 @@
 
         methods: {
             handleFinish(index, row) {
+
                 this.$confirm('考试已完成？',{
                     confirmButtonText: '是',
                     cancelButtonText: '否',
@@ -146,11 +147,13 @@
                             'account': localStorage.getItem('account'),
                             'serial': row.serial
                         }
+
                         }).then((response) => {
                         if (response.data.status == 200) {
                             this.$message({
                                 type: 'success',
                                 message: '考试已完成！'
+
                             })
                             location.reload()
                         } else {

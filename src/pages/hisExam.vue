@@ -22,12 +22,12 @@
             <el-col :span="20" :offset="2" style="margin-top: 5%;">
             <el-timeline :reverse="reverse">
                 <el-timeline-item
-                v-for="(activity, index) in activities"
+                v-for="(exam, index) in examInfo"
                 :key="index"
-                :timestamp="activity.timestamp">
+                :timestamp="exam.week">
                 <el-card>
-                    <h4>{{activity.e_name}}</h4>
-                    <p>{{activity.place}}   {{activity.start}}-{{activity.end}}</p>
+                    <h4>{{exam.e_name}}</h4>
+                    <p>{{exam.place}}   {{exam.start}}-{{exam.end}}</p>
                 </el-card>
                 </el-timeline-item>
             </el-timeline>
@@ -63,6 +63,7 @@
                     }
                 ],
                 search: '',
+                examInfo: []
             }
         },
 
@@ -74,13 +75,16 @@
 
             this.$store.dispatch('post_data', {
                 api: '/api/s_view_finish_exam',
-                data: {account: localStorage.getItem('account')}
+                data: {
+                    'account': localStorage.getItem('account')
+                }
             }).then((response) => {
                 if (response.data.status == 200) {
-                    this.myExam = response.data.exams
-                    for (let i = 0; i < this.resInfo.length; i = i + 1) {
-                        this.myExam[i]['week'] = this.$store.state.map_week[this.myExam[i]['week']]
-                        this.myExam[i]['weekday'] = this.$store.state.map_weekday[this.myExam[i]['weekday']]
+                    this.examInfo = response.data.exams
+                    for (let i = 0; i < this.examInfo.length; i = i + 1) {
+                        this.examInfo[i]['week'] = this.$store.state.map_week[this.examInfo[i]['week']]
+                        this.examInfo[i]['weekday'] = this.$store.state.map_weekday[this.examInfo[i]['weekday']]
+                        this.examInfo[i]['segment'] = this.$store.state.map_weekday[this.examInfo[i]['segment']]
                     }
                 } else {
                     this.$store.commit({

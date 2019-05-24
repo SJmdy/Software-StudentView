@@ -176,18 +176,21 @@
 
         methods: {
             handleFinish(index, row) {
-                 this.$confirm('预约已完成？',{
+                this.$confirm('预约已完成？', {
+
                     confirmButtonText: '是',
                     cancelButtonText: '否',
-                }).then(({value})=>{
+                }).then(({value}) => {
                     console.log(row)
                     this.$store.dispatch('post_data', {
-                        api: '/api/s_finish_res',
+                        api: '/api/finish_res',
                         data: {
                             'account': localStorage.getItem('account'),
                             'serial': row.serial
                         }
-                        }).then((response) => {
+
+                    }).then((response) => {
+
                         if (response.data.status == 200) {
                             this.$message({
                                 type: 'success',
@@ -287,12 +290,11 @@
                     alert(error)
                 });
             },
-            changeShowModus () {
+            changeShowModus() {
                 if (this.show_time_line) {
                     this.show_time_line = false;
                     this.show_modus = '以时间线形式显示';
-                }
-                else {
+                } else {
                     this.show_time_line = true;
                     this.show_modus = '以列表形式显示';
                 }
