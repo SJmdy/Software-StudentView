@@ -24,11 +24,36 @@
                 <el-timeline-item
                 v-for="(res, index) in resInfo"
                 :key="index"
+                color="#67C23A"
+                icon="el-icon-check"
                 :timestamp="res.week">
                 <el-card>
-                    <h4>{{res.t_name}}老师</h4>
-                    <p>{{res.place}}  {{res.segment}}</p>
-                    <p>预约原因：{{res.reason}}</p>
+                    <el-col span="12">
+                        <h4>{{res.t_name}}老师</h4>
+                        <el-divider></el-divider>
+                        <span>地点：{{res.place}}</span>
+                        <el-divider direction="vertical"></el-divider>
+                        <span>时间：{{res.week}} {{res.weekday}} {{res.segment}}</span>
+                        <br>
+                        <el-divider ></el-divider>
+                        <p>预约原因：{{res.reason}}</p>
+                        <br>
+                    </el-col>
+
+                    <el-col :span="12">
+                        <p>对预约的评价：</p>
+                        <el-divider></el-divider>
+                        <template>
+                            <el-rate
+                                    v-model="res.score"
+                                    show-text
+                                    disabled
+                                    @change="changeStatus(index, $event)">
+                            </el-rate>
+                        </template>
+                        <el-divider></el-divider>
+                    </el-col>
+
                 </el-card>
                 </el-timeline-item>
             </el-timeline>

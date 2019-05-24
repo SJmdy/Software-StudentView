@@ -24,43 +24,62 @@
                         <el-timeline-item
                                 v-for="(res, index) in myRes"
                                 :key="index"
+                                color="#409EFF"
                                 :timestamp="res.week">
                             <el-card>
                                 <el-col :span="12">
                                     <h4>{{res.t_name}}老师</h4>
-                                    <p>地点：{{res.place}} 时间：{{res.weekday}}&nbsp;{{res.segment}}</p>
-                                    <p>tips：{{res.tips}}</p>
+                                    <el-divider></el-divider>
+                                    <div style="height: 2em;">
+                                        <span>
+                                            地点：{{res.place}}
+                                        </span>
+                                        <el-divider direction="vertical"></el-divider>
+                                        <span>
+                                            时间：{{res.week}}&nbsp;{{res.weekday}} {{res.segment}}
+                                        </span>
+                                    </div>
+                                    <el-divider></el-divider>
+                                    <p>Tips：{{res.tips}}</p>
+                                    <br>
                                 </el-col>
                                 <el-col :span="12">
-                                    <el-button
-                                            size="mini"
-                                            @click="handleFinish(index, res)">完成
-                                    </el-button>
-                                    <el-button
-                                            v-if="res.is_canceled == '0'"
-                                            size="mini"
-                                            type="danger"
-                                            @click="handleCancel(index, res)">{{btn_cancel_res}}
-                                    </el-button>
-                                    <el-button
-                                            v-if="res.is_canceled == '1'"
-                                            size="mini"
-                                            type="danger"
-                                            @click="handleEnsure(index, res)">{{btn_ensure_cancel_res}}
-                                    </el-button>
-                                    <el-button
-                                            v-if="res.is_canceled == '2'"
-                                            size="mini"
-                                            type="danger"
-                                            @click="handleCancel(index, res)">{{btn_wait_ensure}}
-                                    </el-button>
-                                    <el-button
-                                            v-if="res.is_canceled == '3'"
-                                            size="mini"
-                                            type="danger"
-                                            :disabled="true"
-                                            @click="handleCancel(index, res)">已取消
-                                    </el-button>
+                                    <p>
+                                        您可以进行的操作：
+                                    </p>
+                                    <el-divider></el-divider>
+                                    <div style="height: 2em;">
+                                        <el-button
+                                        size="mini"
+                                        @click="handleFinish(index, res)">完成
+                                        </el-button>
+                                        <el-button
+                                                v-if="res.is_canceled == '0'"
+                                                size="mini"
+                                                type="danger"
+                                                @click="handleCancel(index, res)">{{btn_cancel_res}}
+                                        </el-button>
+                                        <el-button
+                                                v-if="res.is_canceled == '1'"
+                                                size="mini"
+                                                type="danger"
+                                                @click="handleEnsure(index, res)">{{btn_ensure_cancel_res}}
+                                        </el-button>
+                                        <el-button
+                                                v-if="res.is_canceled == '2'"
+                                                size="mini"
+                                                type="danger"
+                                                @click="handleCancel(index, res)">{{btn_wait_ensure}}
+                                        </el-button>
+                                        <el-button
+                                                v-if="res.is_canceled == '3'"
+                                                size="mini"
+                                                type="danger"
+                                                :disabled="true"
+                                                @click="handleCancel(index, res)">已取消
+                                        </el-button>
+                                        <el-divider></el-divider>
+                                    </div>
                                 </el-col>
                             </el-card>
                         </el-timeline-item>
@@ -71,6 +90,16 @@
                             :data="myRes"
                             stripe
                             style="width: 100%">
+                        <el-table-column
+                                label="状态"
+                                width="80"
+                        >
+                            <template slot-scope="scope">
+                                <el-button size="mini" type="success" plain>
+                                    <i class="el-icon-loading"></i>
+                                </el-button>
+                            </template>
+                        </el-table-column>
                         <el-table-column
                                 sortable
                                 prop="week"
@@ -176,14 +205,20 @@
 
         methods: {
             handleFinish(index, row) {
-                this.$confirm('预约已完成？', {
+
+
+                this.$confirm('预约已完成？',{
 
                     confirmButtonText: '是',
                     cancelButtonText: '否',
                 }).then(({value}) => {
                     console.log(row)
                     this.$store.dispatch('post_data', {
+
+
                         api: '/api/finish_res',
+
+
                         data: {
                             'account': localStorage.getItem('account'),
                             'serial': row.serial
