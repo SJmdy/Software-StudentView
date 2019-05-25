@@ -41,10 +41,11 @@
 
                     <el-table
                             v-else
+                            max-height="480"
+
                             :data="resInfo.filter(data => !search || data.t_name.toLowerCase().includes(search.toLowerCase()))"
                             stripe
-                            :highlight-current-row="'true'"
-                            max-height="480"
+
                             style="width: 100%; margin-top: 2%">
                         <el-table-column
                                 label="状态"
