@@ -1,5 +1,5 @@
 <template>
-    <div class='loading' style="min-height: 100%;">
+    <div class='bg_image' style="min-height: 100%;">
         <head-top></head-top>
         <div>
             <el-row>
@@ -41,7 +41,7 @@
                     </el-col>
 
                     <el-col :span="12">
-                        <p>对预约的评价：</p>
+                        <p>老师评价：</p>
                         <el-divider></el-divider>
                         <template>
                             <el-rate
@@ -130,12 +130,15 @@
                     this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                alert(error)
+                // alert(error)
             })
         }
     }
 </script>
 
 <style scoped>
-
+    .bg_image {
+        background-image: url("../assets/bg.jpg");
+        background-repeat: repeat;
+    }
 </style>

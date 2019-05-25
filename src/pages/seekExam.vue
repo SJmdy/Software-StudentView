@@ -1,9 +1,9 @@
 <template>
-    <div class='loading' style="min-height: 100%;">
+    <div class='bg_image' style="min-height: 100%;">
         <head-top></head-top>
         <div>
             <el-row>
-                <el-col :span="20" :offset="2" style="margin-top: 10%;">
+                <el-col :span="20" :offset="2" style="margin-top: 3%;">
                     <span style="font-family: Helvetica Neue; font-size: 18px">考试安排如下：</span>
                     <el-table
                             :data="examInfo.filter(data => !search || data.e_name.toLowerCase().includes(search.toLowerCase()))"
@@ -113,8 +113,8 @@
                             this.$message({
                                 type: 'success',
                                 message: '添加成功！'
-                            })
-                            location.reload()
+                            });
+                            location.reload();
                         } else if(response.data.status == 400){
                             this.$message({
                                 type: 'warning',
@@ -125,12 +125,12 @@
                             this.$store.commit({
                                 type: 'show_message',
                                 status: response.data.status
-                            })
-                            console.log(response.data.status)
+                            });
+                            console.log(response.data.status);
                             this.$message(this.$store.state.app.message_box)
                         }
                     }).catch((error) => {
-                        alert(error)
+                        // alert(error)
                     });
                 }).catch(() => {
                     this.$message({
@@ -163,12 +163,16 @@
                     this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                alert(error)
+                // alert(error)
             })
         }
     }
 </script>
 
 <style scoped>
-
+    .bg_image {
+        background-image: url("../assets/bg.jpg");
+        height: 200%;
+        background-repeat: repeat;
+    }
 </style>

@@ -31,4 +31,9 @@
 <style lang="less">
     @import './style/common';
 
+    .bg_image {
+        background-image: url("/assets/bg.jpg");
+        background-repeat: repeat;
+    }
+
 </style>

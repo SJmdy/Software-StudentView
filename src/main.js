@@ -20,10 +20,10 @@ import fullCalendar from 'vue-fullcalendar'
 
 
 Vue.use(ElementUI);
-Vue.prototype.$request = axios
-Vue.prototype.$store = store
-Vue.config.productionTip = false
-Vue.component('full-calendar', fullCalendar)
+Vue.prototype.$request = axios;
+Vue.prototype.$store = store;
+Vue.config.productionTip = false;
+Vue.component('full-calendar', fullCalendar);
 
 /* eslint-disable no-new */
 new Vue({
@@ -31,4 +31,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});
