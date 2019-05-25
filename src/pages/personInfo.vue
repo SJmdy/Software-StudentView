@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="bg_image">
         <head-top></head-top>
         <div>
             <el-row>
@@ -123,7 +123,7 @@
                         this.$message(this.$store.state.app.message_box)
                     }
                 }).catch((error) => {
-                    alert(error)
+                    // // alert(error)
                 })
             }
 
@@ -147,12 +147,16 @@
                     this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                alert(error)
+                // // alert(error)
             })
         }
     }
 </script>
 
 <style scoped>
-
+    .bg_image {
+        background-image: url("../assets/bg.jpg");
+        background-repeat: repeat;
+        opacity: 80%;
+    }
 </style>

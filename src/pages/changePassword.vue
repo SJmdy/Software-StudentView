@@ -125,7 +125,7 @@
                 this.ChangePwdForm.old_password = ''
               }
             }).catch((error) => {
-              alert(error)
+              // alert(error)
             })
           } else {
             this.$message({

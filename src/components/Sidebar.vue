@@ -6,7 +6,7 @@
 					<template>
 						<img src="../assets/1.jpg" class="avator">
 					</template>
-					<el-menu-item index="/Main" ><i class="zhao-icon-third-icon_work_fill"></i> &nbsp; 主页</el-menu-item>
+					<el-menu-item index="/cal" ><i class="zhao-icon-third-icon_work_fill"></i> &nbsp; 主页</el-menu-item>
 
                     <el-submenu index="1">
                         <template slot="title">
@@ -15,7 +15,7 @@
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/Main" ><i class="el-icon-view"></i> &nbsp; 我的预约</el-menu-item>
-                            <el-menu-item index="/seekRes" ><i class="el-icon-position"></i> &nbsp; 查询预约</el-menu-item>
+                            <el-menu-item index="/seekRes" ><i class="el-icon-search"></i> &nbsp; 查询预约</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
 
@@ -26,7 +26,7 @@
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/showExam" ><i class="el-icon-view"></i> &nbsp; 我的考试</el-menu-item>
-                            <el-menu-item index="/seekExam" ><i class="el-icon-position"></i> &nbsp; 查询考试</el-menu-item>
+                            <el-menu-item index="/seekExam" ><i class="el-icon-search"></i> &nbsp; 查询考试</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
 

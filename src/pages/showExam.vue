@@ -1,9 +1,9 @@
 <template>
-    <div class='loading' style="min-height: 100%;">
+    <div class='bg_image' style="min-height: 100%;">
         <head-top></head-top>
         <div>
             <el-row>
-                <el-col :span="20" :offset="2" style="margin-top: 10%;">
+                <el-col :span="20" :offset="2" style="margin-top: 3%;">
                     <span style="font-family: Helvetica Neue; font-size: 14px">您等待完成的考试如下：</span>
                     <el-button type="text" @click="changeShowModus">{{show_modus}}</el-button>
                     <div class="block" style="margin-bottom: 5%;">
@@ -193,7 +193,7 @@
                             this.$message(this.$store.state.app.message_box)
                         }
                     }).catch((error) => {
-                        alert(error)
+                        // alert(error)
                     });
                 }).catch(() => {
                     this.$message({
@@ -237,7 +237,7 @@
                             this.$message(this.$store.state.app.message_box)
                         }
                     }).catch((error) => {
-                        alert(error)
+                        // alert(error)
                     });
                 }).catch(() => {
                     this.$message({
@@ -278,7 +278,7 @@
                     this.$message(this.$store.state.app.message_box)
                 }
             }).catch((error) => {
-                alert(error)
+                // alert(error)
             })
 
         }
@@ -286,5 +286,9 @@
 </script>
 
 <style scoped>
-
+    .bg_image {
+        background-image: url("../assets/bg.jpg");
+        height: 200%;
+        background-repeat: repeat;
+    }
 </style>
